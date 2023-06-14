@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 function ServiceHistoryList() {
   const [appointments, setAppointments] = useState([])
   const [query, setQuery] = useState("")
-
+  const [autos, setAutos] = useState([])
   const filteredAppointments = appointments.filter(appointment => {
     return appointment.vin.toLowerCase().includes(query.toLowerCase())
   })
