@@ -18,6 +18,21 @@ function ServiceHistoryList() {
       } else {
           console.error(response);
         }
+      const automobiles_url = 'http://localhost:8100/api/automobiles/';
+      const automobiles_response = await fetch(automobiles_url);
+      if (automobiles_response.ok) {
+          const data = await automobiles_response.json();
+          setAutos(data.autos);
+      }
+    }
+    function isSold(vin){
+      let result = "No"
+      for (const auto of autos){
+        if(auto["vin"] === vin){
+          result = "Yes";
+        }
+      }
+      return result;
     }
     return (
         <>
@@ -44,7 +59,7 @@ function ServiceHistoryList() {
                     return (
                     <tr key={appointment.id}>
                       <td>{ appointment.vin }</td>
-                      <td>{ "No" }</td>
+                      <td>{ isSold(appointment.vin)}</td>
                       <td>{ appointment.customer }</td>
                       <td>{ appointment.date_time }</td>
                       <td>{ appointment.technician.first_name }</td>
