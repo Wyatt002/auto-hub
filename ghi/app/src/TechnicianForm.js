@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 
 function TechnicianForm() {
+const formRef = useRef(null);
 const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -21,13 +22,7 @@ const [formData, setFormData] = useState({
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      setFormData({
-        first_name: '',
-        last_name: '',
-        employee_id: '',
-      });
-
-
+      formRef.current.reset();
     }
   }
   const handleFormChange = (e) => {
@@ -44,7 +39,7 @@ const [formData, setFormData] = useState({
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
           <h1>Add a technician</h1>
-          <form onSubmit={handleSubmit} id="create-technician-form">
+          <form ref={formRef} onSubmit={handleSubmit} id="create-technician-form">
             <div className="form-floating mb-3">
               <input onChange={handleFormChange} placeholder="First name" required type="text" name="first_name" id="first_name" className="form-control" />
               <label htmlFor="first_name">First name</label>

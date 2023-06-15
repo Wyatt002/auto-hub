@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 function CustomerForm() {
+  const formRef = useRef(null);
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -24,12 +25,7 @@ function CustomerForm() {
     const response = await fetch(url, fetchConfig);
 
     if (response.ok) {
-      setFormData({
-        first_name: '',
-        last_name: '',
-        address: '',
-        phone_number: '',
-      });
+      formRef.current.reset();
     }
   }
 
@@ -48,7 +44,7 @@ function CustomerForm() {
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
           <h1>Add a Customer</h1>
-          <form onSubmit={handleSubmit} id="create-customer-form">
+          <form ref={formRef} onSubmit={handleSubmit} id="create-customer-form">
             <div className="form-floating mb-3">
               <input onChange={handleFormChange} placeholder="First name" required type="text" name="first_name" id="first_name" className="form-control" />
               <label htmlFor="first_name">First name</label>

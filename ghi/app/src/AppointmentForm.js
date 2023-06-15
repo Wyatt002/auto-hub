@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 
 function AppointmentForm() {
+  const formRef = useRef(null);
   const [technicians, setTechnicians] = useState([])
   const [formData, setFormData] = useState({
     vin: '',
@@ -41,14 +42,7 @@ function AppointmentForm() {
     const appointmentsResponse = await fetch(appointmentsUrl, fetchConfig);
 
     if (appointmentsResponse.ok) {
-      setFormData({
-        vin: '',
-        status: '',
-        customer: '',
-        date_time: '',
-        technician: '',
-        reason: '',
-      });
+        formRef.current.reset();
     }
   }
   const handleFormChange = (e) => {
@@ -66,7 +60,7 @@ function AppointmentForm() {
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
           <h1>Create a service appointment</h1>
-          <form onSubmit={handleSubmit} id="create-conference-form">
+          <form ref={formRef} onSubmit={handleSubmit} id="create-conference-form">
 
             <div className="form-floating mb-3">
               <input onChange={handleFormChange} placeholder="Vin" required type="text" name="vin" id="vin" className="form-control" />

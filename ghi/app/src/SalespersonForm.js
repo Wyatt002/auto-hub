@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 
 function SalespersonForm() {
+  const formRef = useRef(null);
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -21,11 +22,7 @@ function SalespersonForm() {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      setFormData({
-        first_name: '',
-        last_name: '',
-        employee_id: '',
-      });
+      formRef.current.reset();
     }
   }
 
@@ -44,7 +41,7 @@ function SalespersonForm() {
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
           <h1>Add a Salesperson</h1>
-          <form onSubmit={handleSubmit} id="create-salesperson-form">
+          <form ref={formRef} onSubmit={handleSubmit} id="create-salesperson-form">
             <div className="form-floating mb-3">
               <input onChange={handleFormChange} placeholder="First name" required type="text" name="first_name" id="first_name" className="form-control" />
               <label htmlFor="first_name">First name</label>

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 function AutomobileForm() {
+  const formRef = useRef(null);
   const [models, setModels] = useState([])
   const [formData, setFormData] = useState({
     color: '',
@@ -35,12 +36,7 @@ function AutomobileForm() {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      setFormData({
-        color: '',
-        year: '',
-        vin: '',
-        model_id: '',
-      });
+      formRef.current.reset();
     }
   }
 
@@ -59,7 +55,7 @@ function AutomobileForm() {
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
           <h1>Add an automobile to inventory</h1>
-          <form onSubmit={handleSubmit} id="create-vehiclemodel-form">
+          <form ref={formRef} onSubmit={handleSubmit} id="create-vehiclemodel-form">
             <div className="form-floating mb-3">
               <input onChange={handleFormChange} placeholder="Color" required type="text" name="color" id="color" className="form-control" />
               <label htmlFor="color">Color</label>

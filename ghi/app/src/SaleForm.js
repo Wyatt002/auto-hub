@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 function SaleForm() {
+  const formRef = useRef(null);
   const [autos, setAutos] = useState([])
   const [salespeople, setSalespeople] = useState([])
   const [customers, setCustomers] = useState([])
@@ -53,12 +54,7 @@ function SaleForm() {
     const response = await fetch(url, fetchConfig);
 
     if (response.ok) {
-      setFormData({
-        automobile_id: '',
-        salesperson_id: '',
-        customer_id: '',
-        price: '',
-      });
+      formRef.current.reset();
     }
   }
 
@@ -77,7 +73,7 @@ function SaleForm() {
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
           <h1>Record a new sale</h1>
-          <form onSubmit={handleSubmit} id="create-sale-form">
+          <form ref={formRef} onSubmit={handleSubmit} id="create-sale-form">
             <div className="mb-3">
               <select onChange={handleFormChange} required name="automobile_id" id="automobile_id" className="form-select">
                 <option value="">Choose an automobile VIN</option>
