@@ -34,6 +34,15 @@ function ServiceHistoryList() {
       }
       return result;
     }
+    function formatTime(timeString) {
+      const options = {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+      };
+      const time = new Date(`2000-01-01T${timeString}`);
+      return time.toLocaleTimeString(undefined, options);
+    }
     return (
         <>
             <h1>Service History</h1>
@@ -48,7 +57,8 @@ function ServiceHistoryList() {
                   <th>VIN</th>
                   <th>Is VIP?</th>
                   <th>Customer</th>
-                  <th>Date_&_Time</th>
+                  <th>Date</th>
+                  <th>Time</th>
                   <th>Technician</th>
                   <th>Reason</th>
                   <th>Status</th>
@@ -61,7 +71,8 @@ function ServiceHistoryList() {
                       <td>{ appointment.vin }</td>
                       <td>{ isSold(appointment.vin)}</td>
                       <td>{ appointment.customer }</td>
-                      <td>{ appointment.date_time }</td>
+                      <td>{ appointment.date }</td>
+                      <td>{ formatTime(appointment.time) }</td>
                       <td>{ appointment.technician.first_name }</td>
                       <td>{ appointment.reason }</td>
                       <td>{ appointment.status }</td>

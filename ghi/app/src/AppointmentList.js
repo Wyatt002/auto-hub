@@ -9,7 +9,7 @@ function AppointmentList() {
       const response = await fetch('http://localhost:8080/api/appointments/');
       if (response.ok) {
           const data = await response.json();
-          setAppointments(data.appointments.filter(appointment=>appointment.status==""));
+          setAppointments(data.appointments.filter(appointment=>appointment.status=="created"));
       } else {
           console.error(response);
         }
@@ -56,6 +56,15 @@ const finishClick = async(id) => {
   };
   const finishResponse = await fetch(url, fetchConfig);
 }
+function formatTime(timeString) {
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+  const time = new Date(`2000-01-01T${timeString}`);
+  return time.toLocaleTimeString(undefined, options);
+}
 
     return (
         <>
@@ -66,7 +75,8 @@ const finishClick = async(id) => {
                   <th>VIN</th>
                   <th>Is VIP?</th>
                   <th>Customer</th>
-                  <th>Date_&_Time</th>
+                  <th>Date</th>
+                  <th>Time</th>
                   <th>Technician</th>
                   <th>Reason</th>
                 </tr>
@@ -78,7 +88,8 @@ const finishClick = async(id) => {
                       <td>{ appointment.vin }</td>
                       <td>{ isSold(appointment.vin) }</td>
                       <td>{ appointment.customer }</td>
-                      <td>{ appointment.date_time }</td>
+                      <td>{ appointment.date }</td>
+                      <td>{ formatTime(appointment.time) }</td>
                       <td>{ appointment.technician.first_name }</td>
                       <td>{ appointment.reason }</td>
                       <td><button onClick={(e) => cancelClick(appointment.id)} type="button" className="btn btn-danger">Cancel</button></td>

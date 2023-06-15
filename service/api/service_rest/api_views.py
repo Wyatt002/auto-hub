@@ -135,7 +135,8 @@ def api_show_appointment(request, pk):
             content = json.loads(request.body)
             appointment = Appointment.objects.get(id=pk)
             props = [
-                "date_time",
+                "date",
+                "time",
                 "reason",
                 "vin",
                 "customer",

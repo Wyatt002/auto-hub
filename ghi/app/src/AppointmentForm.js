@@ -8,7 +8,8 @@ function AppointmentForm() {
     vin: '',
     status: '',
     customer: '',
-    date_time: '',
+    date: '',
+    time: '',
     technician: '',
     reason: '',
   })
@@ -73,13 +74,13 @@ function AppointmentForm() {
             </div>
 
             <div className="form-floating mb-3">
-              <input onChange={handleFormChange} placeholder="Date_time" required type="date" name="date_time" id="date_time" className="form-control" />
-              <label htmlFor="date_time">Date</label>
+              <input onChange={handleFormChange} placeholder="Date" required type="date" name="date" id="date" className="form-control" />
+              <label htmlFor="date">Date</label>
             </div>
 
             <div className="form-floating mb-3">
-              <input onChange={handleFormChange} placeholder="Date_time" required type="time" name="date_time" id="date_time" className="form-control" />
-              <label htmlFor="date_time">Time</label>
+              <input onChange={handleFormChange} placeholder="Time" required type="time" name="time" id="time" className="form-control" />
+              <label htmlFor="time">Time</label>
             </div>
 
             <div className="mb-3">
