@@ -50,7 +50,8 @@ function SaleForm() {
         'Content-Type': 'application/json',
       },
     };
-
+    console.log(fetchConfig);
+    console.log(formData);
     const response = await fetch(url, fetchConfig);
 
     if (response.ok) {
@@ -79,7 +80,7 @@ function SaleForm() {
                 <option value="">Choose an automobile VIN</option>
                 {autos.map(auto => {
                   return (
-                    <option key={auto.id} value={auto.id}>{auto.vin}</option>
+                    <option key={auto.id} value={auto.vin}>{auto.vin}</option>
                   )
                 })}
               </select>
